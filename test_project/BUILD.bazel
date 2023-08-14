@@ -1,0 +1,26 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_library(
+    name = "test_project",
+    srcs = ["main.py"],
+    imports = [".."],
+    visibility = ["//:__subpackages__"],
+)
+
+py_binary(
+    name = "test_project_bin",
+    srcs = ["__main__.py"],
+    env = {
+        "CUDA_HOME": "/usr/local/cuda",
+        "LIBRARY_PATH": "/usr/local/cuda/lib64",
+        "C_INCLUDE_PATH": "/usr/local/cuda/include",
+    },
+    imports = [".."],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        ":test_project",
+        "@pip//torch",
+        "@pip//triton",
+    ],
+)

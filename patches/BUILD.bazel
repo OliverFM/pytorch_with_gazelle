@@ -1,0 +1,6 @@
+filegroup(
+    name = "rules_python_annotation.patch",
+    srcs = [
+        "rules_python_annotation.patch",
+    ],
+)

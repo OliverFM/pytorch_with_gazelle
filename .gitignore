@@ -1,0 +1,16 @@
+*.pem
+*.pfx
+*.pyc
+*.so
+*.swp
+*.swo
+*.log
+.env
+*.tfrecords
+.DS_Store
+tmp/
+.ctags.d/**
+tags
+
+# Bazel
+bazel-*
