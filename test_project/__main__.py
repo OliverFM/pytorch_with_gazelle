@@ -5,6 +5,7 @@ if __name__ == "__main__":
     import torch
     import py3nvml
 
-    print()
+    tensor = torch.ones((1, 2, 3))
+    print(f"testing torch {tensor=}")
 
     main()
