@@ -61,27 +61,30 @@ gazelle_dependencies(go_repository_default_config = "//:WORKSPACE.bazel")
 # Our example uses `local_repository` to point to the HEAD version of rules_python.
 # Users should instead use the installation instructions from the release they use.
 # See https://github.com/bazelbuild/rules_python/releases
-RULES_PYTHON_SHA256="8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
-RULES_PYTHON_VERSION="0.23.0"
+RULES_PYTHON_SHA256 = "8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
+
+RULES_PYTHON_VERSION = "0.23.0"
+
 http_archive(
-        name = "rules_python",
-        patch_args = ["-p1"],
-        patches = [
-            "//patches:rules_python_annotation.patch",
-        ],
-        sha256 = RULES_PYTHON_SHA256,
-        strip_prefix = "rules_python-{}".format(RULES_PYTHON_VERSION),
-        url = "https://github.com/bazelbuild/rules_python/archive/{}.tar.gz".format(RULES_PYTHON_VERSION),
-        # url = "[https://github.com/bazelbuild/rules_python/archive/{}.tar.gz](https://github.com/bazelbuild/rules_python/archive/%7B%7D.tar.gz)".format(RULES_PYTHON_VERSION),
+    name = "rules_python",
+    patch_args = ["-p1"],
+    patches = [
+        "//patches:rules_python_annotation.patch",
+    ],
+    sha256 = RULES_PYTHON_SHA256,
+    strip_prefix = "rules_python-{}".format(RULES_PYTHON_VERSION),
+    url = "https://github.com/bazelbuild/rules_python/archive/{}.tar.gz".format(RULES_PYTHON_VERSION),
+    # url = "[https://github.com/bazelbuild/rules_python/archive/{}.tar.gz](https://github.com/bazelbuild/rules_python/archive/%7B%7D.tar.gz)".format(RULES_PYTHON_VERSION),
 )
-GAZELLE_SHA="8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
+
+GAZELLE_SHA = "8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
+
 http_archive(
     name = "rules_python_gazelle_plugin",
     sha256 = GAZELLE_SHA,
     strip_prefix = "rules_python-{}/gazelle".format(RULES_PYTHON_VERSION),
     url = "https://github.com/bazelbuild/rules_python/releases/download/{}/rules_python-{}.tar.gz".format(RULES_PYTHON_VERSION, RULES_PYTHON_VERSION),
 )
-
 
 # Next we load the toolchain from rules_python.
 load("@rules_python//python:repositories.bzl", "python_register_toolchains")
@@ -96,19 +99,36 @@ python_register_toolchains(
 
 # Load the interpreter and pip_parse rules.
 load("@python39//:defs.bzl", "interpreter")
-load("@rules_python//python:pip.bzl", "pip_parse", "package_annotation")
+load("@rules_python//python:pip.bzl", "package_annotation", "pip_parse")
+
+
+# these rules are for installing a manually built torch binary, not necessary for now.
+# load("@rules_python//python/pip_install:pip_repository.bzl", "whl_library")
+#
+# whl_library(
+#     name = "torch",
+#     requirement="2.0.1",
+#     repo="",
+#     extra_pip_args = [
+#         "--find-links",
+#         "/home/oliver/torch-2.0.1+stripe.2-cp38-cp38-manylinux1_x86_64.whl",
+#     ],
+#     python_interpreter = interpreter,
+# )
 
 ANNOTATIONS = {
     "triton": package_annotation(
         excluded_deps = ["torch"],
     ),
 }
+
 # This macro wraps the `pip_repository` rule that invokes `pip`, with `incremental` set.
 # Accepts a locked/compiled requirements file and installs the dependencies listed within.
 # Those dependencies become available in a generated `requirements.bzl` file.
 # You can instead check this `requirements.bzl` file into your repo.
 pip_parse(
     name = "pip",
+    annotations = ANNOTATIONS,
     # Generate user friendly alias labels for each dependency that we have.
     incompatible_generate_aliases = True,
     # (Optional) You can provide a python_interpreter (path) or a python_interpreter_target (a Bazel target, that
@@ -121,7 +141,6 @@ pip_parse(
     python_interpreter_target = interpreter,
     # Set the location of the lock file.
     requirements_lock = "//:requirements_lock.txt",
-    annotations=ANNOTATIONS,
 )
 
 # Load the install_deps macro.

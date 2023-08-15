@@ -202,6 +202,10 @@ pure-eval==0.2.2 \
     --hash=sha256:01eaab343580944bc56080ebe0a674b39ec44a945e6d09ba7db3cb8cec289350 \
     --hash=sha256:2b45320af6dfaa1750f543d714b6d1c520a1688dec6fd24d339063ce0aaa9ac3
     # via stack-data
+py3nvml==0.2.7 \
+    --hash=sha256:09ee1d04598a6e664e24465f804ce3bfe119a6fdb5362df1c168f8aa929fbd73 \
+    --hash=sha256:30101170d1f51419c8d21fd8ca6cdc333a552b4f8a945c2fc7d107d77e4220dd
+    # via -r requirements.txt
 pygments==2.16.1 \
     --hash=sha256:13fc09fa63bc8d8671a6d247e1eb303c4b343eaee81d861f3404db2935653692 \
     --hash=sha256:1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29
@@ -257,9 +261,7 @@ torch==2.0.0 \
     --hash=sha256:d439aec349c98f12819e8564b8c54008e4613dd4428582af0e6e14c24ca85870 \
     --hash=sha256:e54846aa63855298cfb1195487f032e413e7ac9cbfa978fda32354cc39551475 \
     --hash=sha256:ec5fff2447663e369682838ff0f82187b4d846057ef4d119a8dea7772a0b17dd
-    # via
-    #   -r requirements.txt
-    #   triton
+    # via triton
 traitlets==5.9.0 \
     --hash=sha256:9e6ec080259b9a5940c797d58b613b5e31441c2257b87c2e795c5228ae80d2d8 \
     --hash=sha256:f6cde21a9c68cf756af02035f72d5a723bf607e862e7be33ece505abf4a3bad9
@@ -308,3 +310,7 @@ wheel==0.41.1 \
     #   nvidia-curand-cu11
     #   nvidia-cusparse-cu11
     #   nvidia-nvtx-cu11
+xmltodict==0.13.0 \
+    --hash=sha256:341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56 \
+    --hash=sha256:aa89e8fd76320154a40d19a0df04a4695fb9dc5ba977cbb68ab3e4eb225e7852
+    # via py3nvml

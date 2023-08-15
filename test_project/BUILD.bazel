@@ -10,16 +10,17 @@ py_library(
 py_binary(
     name = "test_project_bin",
     srcs = ["__main__.py"],
-    env = {
-        "CUDA_HOME": "/usr/local/cuda",
-        "LIBRARY_PATH": "/usr/local/cuda/lib64",
-        "C_INCLUDE_PATH": "/usr/local/cuda/include",
-    },
+    # env = {
+    #     "CUDA_HOME": "/usr/local/cuda",
+    #     "LIBRARY_PATH": "/usr/local/cuda/lib64",
+    #     "C_INCLUDE_PATH": "/usr/local/cuda/include",
+    # },
     imports = [".."],
     main = "__main__.py",
     visibility = ["//:__subpackages__"],
     deps = [
         ":test_project",
+        "@pip//py3nvml",
         "@pip//torch",
         "@pip//triton",
     ],

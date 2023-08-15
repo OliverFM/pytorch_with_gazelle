@@ -879,6 +879,10 @@ manifest:
     pure_eval.my_getattr_static: pure_eval
     pure_eval.utils: pure_eval
     pure_eval.version: pure_eval
+    py3nvml: py3nvml
+    py3nvml.nvidia_smi: py3nvml
+    py3nvml.py3nvml: py3nvml
+    py3nvml.utils: py3nvml
     pygments: Pygments
     pygments.cmdline: Pygments
     pygments.console: Pygments
@@ -2904,7 +2908,8 @@ manifest:
     wheel.vendored.packaging.utils: wheel
     wheel.vendored.packaging.version: wheel
     wheel.wheelfile: wheel
+    xmltodict: xmltodict
   pip_repository:
     name: pip
     use_pip_repository_aliases: true
-integrity: cc257243a1635be158ecdd2820a0b053b13ad71a4423d6f76efb4bd8ce496359
+integrity: b07c08032113234a34992b5d697229f11fa50a065518ce3b52937142358583a0
