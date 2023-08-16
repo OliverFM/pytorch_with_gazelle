@@ -1,6 +1,4 @@
-filegroup(
-    name = "rules_python_annotation.patch",
-    srcs = [
-        "rules_python_annotation.patch",
-    ],
-)
+# blank BUILD.bazel marks this as a package
+# bazel will automatically generate a filegroup
+# called :rules_python_annotation.patch
+# see this issue: https://github.com/bazelbuild/bazel/issues/7346
