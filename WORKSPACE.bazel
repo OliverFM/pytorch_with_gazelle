@@ -55,11 +55,57 @@ go_register_toolchains(version = "1.19.4")
 # The following call configured the gazelle dependencies, Go environment and Go SDK.
 gazelle_dependencies(go_repository_default_config = "//:WORKSPACE.bazel")
 
+###### 
+# Rust setup
+###### 
+RULES_RUST_SHA256 =  "9d04e658878d23f4b00163a72da3db03ddb451273eb347df7d7c50838d698f49"
+RULES_RUST_VERSION = "0.26.0"
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "rules_rust",
+    sha256 = RULES_RUST_SHA256,
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/{}/rules_rust-v{}.tar.gz".format(RULES_RUST_VERSION, RULES_RUST_VERSION )],
+)
+
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+
+rules_rust_dependencies()
+
+RUST_VERSION="1.71.1"
+rust_register_toolchains(
+    edition = "2021",
+    versions = [
+        RUST_VERSION
+    ],
+)
+
+##### Crates Universe
+load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository", "render_config")
+
+crates_repository(
+    name = "crate_index",
+    cargo_lockfile = "//:Cargo.lock",
+    lockfile = "//:Cargo.Bazel.lock",
+    packages = {
+        "num": crate.spec(
+            version = "0.4.1",
+        ),
+    },
+    # Setting the default package name to `""` forces the use of the macros defined in this repository
+    # to always use the root package when looking for dependencies or aliases. This should be considered
+    # optional as the repository also exposes alises for easy access to all dependencies.
+    render_config = render_config(
+        default_package_name = ""
+    ),
+)
+
+load("@crate_index//:defs.bzl", "crate_repositories")
+
+crate_repositories()
+
+
 # Remaining setup is for rules_python.
 
-# DON'T COPY_PASTE THIS.
-# Our example uses `local_repository` to point to the HEAD version of rules_python.
-# Users should instead use the installation instructions from the release they use.
 # See https://github.com/bazelbuild/rules_python/releases
 RULES_PYTHON_SHA256 = "8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
 
@@ -153,7 +199,7 @@ install_deps()
 # which we need to fetch in order to compile it.
 load("@rules_python_gazelle_plugin//:deps.bzl", _py_gazelle_deps = "gazelle_deps")
 
-# See: https://github.com/bazelbuild/rules_python/blob/main/gazelle/README.md
+#f See: https://github.com/bazelbuild/rules_python/blob/main/gazelle/README.md
 # This rule loads and compiles various go dependencies that running gazelle
 # for python requirements.
 _py_gazelle_deps()
