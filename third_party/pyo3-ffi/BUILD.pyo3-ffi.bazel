@@ -1,0 +1,42 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", )
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "pyo3-ffi",
+    srcs = glob(["src/**/*.rs"]),
+    # edition = "2021",
+    crate_features = [
+            "default",
+            "extension-module",
+        ],
+        crate_name = "pyo3_ffi",
+        crate_root = "src/lib.rs",
+    deps = [
+        # "@pyo3_deps//:cfg-if",
+        "@pyo3_deps//:libc",
+        # "@pyo3_deps//:parking_lot",
+        # "@pyo3_deps//:memoffset",
+        # "@pyo3_deps//:pyo3-ffi",
+        # "@pyo3_deps//:unindent",
+
+        # "@pyo3_deps//:inventory",
+        # "@pyo3_deps//:anyhow",
+        # "@pyo3_deps//:chrono",
+        # "@pyo3_deps//:eyre",
+        # "@pyo3_deps//:hashbrown",
+        # "@pyo3_deps//:indexmap",
+        # "@pyo3_deps//:num-bigint",
+        # "@pyo3_deps//:num-complex",
+        # "@pyo3_deps//:rust_decimal",
+        # "@pyo3_deps//:serde",
+        # "@pyo3_deps//:",
+        # "@pyo3_deps//:",
+        # "@pyo3-build-config//:pyo3-build-config",
+        # "@pyo3_deps//:",
+    ],
+    proc_macro_deps = [
+        # "@pyo3_deps//:pyo3-macros",
+        "@pyo3_deps//:indoc",
+    ],
+)
+

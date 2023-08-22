@@ -101,6 +101,53 @@ crates_repository(
 )
 
 http_archive(
+    name = "pyo3-build-config",
+    build_file = "//third_party/pyo3-build-config:BUILD.pyo3-build-config.bazel",
+    # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+    strip_prefix = "pyo3-0.19.2/pyo3-build-config",
+    type = "tar.gz",
+    urls = ["https://github.com/PyO3/pyo3/archive/refs/tags/v0.19.2.tar.gz"],
+)
+
+crates_repository(
+    name = "pyo3-build-config_deps",
+    cargo_lockfile = "//third_party/pyo3-build-config:Cargo.lock",
+    manifests = ["@pyo3-build-config//:Cargo.toml"],
+    # generate_build_scripts=False,
+)
+
+http_archive(
+    name = "pyo3-ffi",
+    build_file = "//third_party/pyo3-ffi:BUILD.pyo3-ffi.bazel",
+    # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+    strip_prefix = "pyo3-ffi-0.19.2",
+    type = "tar.gz",
+    urls = ["https://crates.io/api/v1/crates/pyo3-ffi/0.19.2/download"],
+)
+
+crates_repository(
+    name = "pyo3-ffi_deps",
+    cargo_lockfile = "//third_party/pyo3-ffi:Cargo.lock",
+    manifests = ["@pyo3-ffi//:Cargo.toml"],
+    generate_build_scripts=False,
+    annotations = {
+        "pyo3": [crate.annotation(
+            crate_features = ["extension-module","macros", "pyo3-macros", "indoc", "unindent", "abi3-py39"],
+        rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+                "--cfg=Py_3_7",
+                "--cfg=Py_3_8",
+                "--cfg=Py_3_9",
+        ],
+        )],
+    },
+)
+
+http_archive(
     name = "pyo3",
     build_file = "//third_party/pyo3:BUILD.pyo3.bazel",
     # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
@@ -113,6 +160,22 @@ crates_repository(
     name = "pyo3_deps",
     cargo_lockfile = "//third_party/pyo3:Cargo.lock",
     manifests = ["@pyo3//:Cargo.toml"],
+    generate_build_scripts=False,
+    annotations = {
+        "pyo3": [crate.annotation(
+            crate_features = ["extension-module","macros", "pyo3-macros", "indoc", "unindent", "abi3-py39"],
+        rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+                "--cfg=Py_3_7",
+                "--cfg=Py_3_8",
+                "--cfg=Py_3_9",
+        ],
+        )],
+    },
 )
 
 load("@pyo3_deps//:defs.bzl", pyo3_deps = "crate_repositories")

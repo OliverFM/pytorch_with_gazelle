@@ -17,7 +17,7 @@ load("@rules_rust//rust:defs.bzl", "rust_shared_library")
 
 rust_shared_library(
     name = "example_lib_rs",
-    srcs = ["example_lib.rs"],
+    srcs = ["src/lib.rs", "src/example_lib.rs"],
     deps = [
         "@pyo3//:pyo3",
     ],

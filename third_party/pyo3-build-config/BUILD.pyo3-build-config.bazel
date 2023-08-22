@@ -1,0 +1,21 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", )
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "pyo3-build-config",
+    srcs = glob(["src/**/*.rs"]),
+    crate_features = [
+            "default",
+            "extension-module",
+            "abi3-py39"
+        ],
+        crate_name = "pyo3_build_config",
+        crate_root = "src/lib.rs",
+    deps = [
+        "@pyo3-build-config_deps//:once_cell",
+        "@pyo3-build-config_deps//:target-lexicon",
+    ],
+    proc_macro_deps = [
+    ],
+)
+
