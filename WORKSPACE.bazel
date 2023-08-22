@@ -90,6 +90,7 @@ crates_repository(
         "num": crate.spec(
             version = "0.4.1",
         ),
+        "pyo3": crate.spec(version="0.19.2",),
     },
     # Setting the default package name to `""` forces the use of the macros defined in this repository
     # to always use the root package when looking for dependencies or aliases. This should be considered
