@@ -19,7 +19,7 @@ rust_shared_library(
     name = "example_lib_rs",
     srcs = ["example_lib.rs"],
     deps = [
-        "@crate_index//:pyo3",
+        "@pyo3//:pyo3",
     ],
 )
 
