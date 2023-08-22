@@ -107,6 +107,9 @@ http_archive(
     strip_prefix = "pyo3-0.19.2/pyo3-build-config",
     type = "tar.gz",
     urls = ["https://github.com/PyO3/pyo3/archive/refs/tags/v0.19.2.tar.gz"],
+    patches = [
+        "//patches:pyo3-build-config.patch",
+    ],
 )
 
 crates_repository(
@@ -118,9 +121,10 @@ crates_repository(
             "target-lexicon": [crate.annotation(
                 build_script_rustc_env = {
                     "OUT_DIR": "/tmp/rustc_out",
+                    "HOST": "",
                 },
                 rustc_env = {
-                    "OUT_DIR": "/tmp/rustc_out",
+                    "HOST": "",
                 },
                 gen_build_script = True,
             )],
@@ -128,12 +132,15 @@ crates_repository(
 )
 
 http_archive(
-    name = "pyo3-ffi",
+    name = "pyo3_ffi",
     build_file = "//third_party/pyo3-ffi:BUILD.pyo3-ffi.bazel",
     # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
     strip_prefix = "pyo3-ffi-0.19.2",
     type = "tar.gz",
     urls = ["https://crates.io/api/v1/crates/pyo3-ffi/0.19.2/download"],
+    patches = [
+        "//patches:pyo3-ffi.patch",
+    ],
 )
 
 load("@pyo3_build_config_deps//:defs.bzl", pyo3_build_config_deps = "crate_repositories")
@@ -142,7 +149,7 @@ pyo3_build_config_deps()
 crates_repository(
     name = "pyo3_ffi_deps",
     cargo_lockfile = "//third_party/pyo3-ffi:Cargo.lock",
-    manifests = ["@pyo3-ffi//:Cargo.toml"],
+    manifests = ["@pyo3_ffi//:Cargo.toml"],
     generate_build_scripts=False,
 )
 load("@pyo3_ffi_deps//:defs.bzl", pyo3_ffi_deps = "crate_repositories")
@@ -155,6 +162,9 @@ http_archive(
     strip_prefix = "pyo3-0.19.2",
     type = "tar.gz",
     urls = ["https://crates.io/api/v1/crates/pyo3/0.19.2/download"],
+    patches = [
+        "//patches:pyo3.patch",
+    ],
 )
 
 crates_repository(

@@ -18,5 +18,8 @@ rust_library(
     ],
     proc_macro_deps = [
     ],
+    rustc_env={
+                    "OUT_DIR": "/tmp/rustc_out", #TODO put this in the sandbox
+    }
 )
 
