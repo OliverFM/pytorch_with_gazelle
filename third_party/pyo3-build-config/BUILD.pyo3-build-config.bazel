@@ -7,13 +7,14 @@ rust_library(
     crate_features = [
             "default",
             "extension-module",
-            "abi3-py39"
+            "abi3-py39",
+            "resolve-config",
         ],
         crate_name = "pyo3_build_config",
         crate_root = "src/lib.rs",
     deps = [
-        "@pyo3-build-config_deps//:once_cell",
-        "@pyo3-build-config_deps//:target-lexicon",
+        "@pyo3_build_config_deps//:once_cell",
+        "@pyo3_build_config_deps//:target-lexicon",
     ],
     proc_macro_deps = [
     ],

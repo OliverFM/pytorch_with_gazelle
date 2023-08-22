@@ -13,7 +13,7 @@ rust_library(
         crate_root = "src/lib.rs",
     deps = [
         # "@pyo3_deps//:cfg-if",
-        "@pyo3_deps//:libc",
+        "@pyo3_ffi_deps//:libc",
         # "@pyo3_deps//:parking_lot",
         # "@pyo3_deps//:memoffset",
         # "@pyo3_deps//:pyo3-ffi",
@@ -31,7 +31,7 @@ rust_library(
         # "@pyo3_deps//:serde",
         # "@pyo3_deps//:",
         # "@pyo3_deps//:",
-        # "@pyo3-build-config//:pyo3-build-config",
+        "@pyo3-build-config//:pyo3-build-config",
         # "@pyo3_deps//:",
     ],
     proc_macro_deps = [
