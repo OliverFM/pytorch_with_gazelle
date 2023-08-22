@@ -119,27 +119,6 @@ load("@pyo3_deps//:defs.bzl", pyo3_deps = "crate_repositories")
 
 pyo3_deps()
 
-http_archive(
-    name = "rustfilt",
-    build_file = "//rustfilt:BUILD.rustfilt.bazel",
-    sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
-    strip_prefix = "rustfilt-0.2.1",
-    type = "tar.gz",
-    urls = ["https://crates.io/api/v1/crates/rustfilt/0.2.1/download"],
-)
-
-load("@rules_rust//crate_universe:defs.bzl", "crates_repository")
-
-crates_repository(
-    name = "rustfilt_deps",
-    cargo_lockfile = "//rustfilt:Cargo.lock",
-    manifests = ["@rustfilt//:Cargo.toml"],
-)
-
-load("@rustfilt_deps//:defs.bzl", rustfilt_deps = "crate_repositories")
-
-rustfilt_deps()
-
 load("@crate_index//:defs.bzl", "crate_repositories")
 
 crate_repositories()
