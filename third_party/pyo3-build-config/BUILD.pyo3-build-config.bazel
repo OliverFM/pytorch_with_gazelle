@@ -4,12 +4,7 @@ package(default_visibility = ["//visibility:public"])
 rust_library(
     name = "pyo3-build-config",
     srcs = glob(["src/**/*.rs"]),
-    crate_features = [
-            "default",
-            "extension-module",
-            "abi3-py39",
-            "resolve-config",
-        ],
+    crate_features=["abi3", "abi3-39", "extension-module"],
         crate_name = "pyo3_build_config",
         crate_root = "src/lib.rs",
     deps = [
@@ -30,6 +25,6 @@ rust_library(
             "--cfg=Py_3_7",
             "--cfg=Py_3_8",
             "--cfg=Py_3_9",
-        ]
+        ],
 )
 

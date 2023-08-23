@@ -27,6 +27,6 @@ rust_proc_macro(
             "--cfg=Py_3_7",
             "--cfg=Py_3_8",
             "--cfg=Py_3_9",
-        ]
+        ],
 )
 

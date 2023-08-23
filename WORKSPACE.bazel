@@ -220,21 +220,6 @@ crates_repository(
     cargo_lockfile = "//third_party/pyo3:Cargo.lock",
     manifests = ["@pyo3//:Cargo.toml"],
     generate_build_scripts=False,
-    annotations = {
-        "pyo3": [crate.annotation(
-            crate_features = ["extension-module","macros", "pyo3-macros", "indoc", "unindent", "abi3-py39"],
-        rustc_flags = [
-            "--cap-lints=allow",
-            "--cfg=addr_of",
-            "--cfg=min_const_generics",
-            "--cfg=option_insert",
-            "--cfg=Py_3_6",
-                "--cfg=Py_3_7",
-                "--cfg=Py_3_8",
-                "--cfg=Py_3_9",
-        ],
-        )],
-    },
 )
 
 load("@pyo3_deps//:defs.bzl", pyo3_deps = "crate_repositories")
