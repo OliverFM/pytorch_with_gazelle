@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_test")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 # load("@rules_pyo3//:build_defs.bzl", "pyo3_extension")
 # load("pyo3.bzl", "pyo3_extension")
 
@@ -17,12 +17,11 @@ load("@rules_rust//rust:defs.bzl", "rust_shared_library")
 
 rust_shared_library(
     name = "example_lib_rs",
+    crate_name = "example_lib",
     srcs = ["src/example_lib.rs"],
     deps = [
         "@pyo3//:pyo3",
-        "@pyo3_ffi//:pyo3-ffi",
     ],
-    
 )
 
 genrule(
@@ -36,17 +35,16 @@ py_library(
     name = "example_lib",
     srcs = [],
     data = ["example_lib.so"],
+    imports = ["."],
 )
 
 py_binary(
     name = "example",
     srcs = ["example.py"],
-    deps = [":example_lib"],
+    deps = [":example_lib", 
+        "@pip//ipdb",
+    ],
     data = ["example_lib.so"],
+    imports = ["."],
 )
 
-# py_test(
-#     name = "use_ext",
-#     srcs = ["use_ext.py"],
-#     deps = [":example_lib"]
-# )
