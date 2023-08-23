@@ -1,0 +1,31 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", )
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "pyo3-ffi",
+    srcs = glob(["src/**/*.rs"]),
+    # edition = "2021",
+    crate_features = [
+            "default",
+    "abi3", "abi3-39", "extension-module"],
+        crate_name = "pyo3_ffi",
+        crate_root = "src/lib.rs",
+    deps = [
+        "@pyo3_ffi_deps//:libc",
+        "@pyo3-build-config//:pyo3-build-config",
+    ],
+    proc_macro_deps = [
+        "@pyo3_deps//:indoc",
+    ],
+    rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+            "--cfg=Py_3_7",
+            "--cfg=Py_3_8",
+            "--cfg=Py_3_9",
+        ],
+)
+

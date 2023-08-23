@@ -1,0 +1,32 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_proc_macro" )
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "pyo3-macros-backend",
+    srcs = glob(["src/**/*.rs"]),
+    edition = "2021",
+    crate_features = [
+            "abi3",
+        ],
+        crate_name = "pyo3_macros_backend",
+        crate_root = "src/lib.rs",
+    deps = [
+        "@pyo3_macros_backend_deps//:quote",
+        "@pyo3_macros_backend_deps//:proc-macro2",
+        "@pyo3_macros_backend_deps//:syn",
+        # "@pyo3_macros_backend_deps//:heck",
+    ],
+    proc_macro_deps = [
+    ],
+    rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+            "--cfg=Py_3_7",
+            "--cfg=Py_3_8",
+            "--cfg=Py_3_9",
+        ],
+)
+

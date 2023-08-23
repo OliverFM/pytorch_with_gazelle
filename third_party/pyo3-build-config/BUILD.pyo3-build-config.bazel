@@ -1,0 +1,30 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", )
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "pyo3-build-config",
+    srcs = glob(["src/**/*.rs"]),
+    crate_features=["abi3", "abi3-39", "extension-module"],
+        crate_name = "pyo3_build_config",
+        crate_root = "src/lib.rs",
+    deps = [
+        "@pyo3_build_config_deps//:once_cell",
+        "@pyo3_build_config_deps//:target-lexicon",
+    ],
+    proc_macro_deps = [
+    ],
+    rustc_env={
+                    "OUT_DIR": "/tmp/rustc_out", #TODO put this in the sandbox
+    },
+    rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+            "--cfg=Py_3_7",
+            "--cfg=Py_3_8",
+            "--cfg=Py_3_9",
+        ],
+)
+

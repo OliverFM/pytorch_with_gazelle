@@ -5,7 +5,7 @@ package(default_visibility = ["//visibility:public"])
 rust_binary(
     name = "hello_world",
     srcs = [
-        "src/main.rs", 
+        "src/main.rs",
     ],
     deps = [
         "@crate_index//:num",

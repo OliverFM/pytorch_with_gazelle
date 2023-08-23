@@ -1,0 +1,50 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+# load("@rules_pyo3//:build_defs.bzl", "pyo3_extension")
+# load("pyo3.bzl", "pyo3_extension")
+
+
+# pyo3_extension(
+#     name = "ext",
+#     srcs = ["ext.rs"],
+# )
+
+
+package(default_visibility = ["//visibility:public"])
+
+load("@rules_rust//rust:defs.bzl", "rust_shared_library")
+
+# TODO: https://github.com/TheButlah/rules_pyo3/blob/master/build_defs.bzl
+
+rust_shared_library(
+    name = "example_lib_rs",
+    crate_name = "example_lib",
+    srcs = ["src/example_lib.rs"],
+    deps = [
+        "@pyo3//:pyo3",
+    ],
+)
+
+genrule(
+    name = "example_lib_so",
+    srcs = [":example_lib_rs"],
+    outs = ["example_lib.so"],
+    cmd = "cp $< $@",
+)
+
+py_library(
+    name = "example_lib",
+    srcs = [],
+    data = ["example_lib.so"],
+    imports = ["."],
+)
+
+py_binary(
+    name = "example",
+    srcs = ["example.py"],
+    deps = [":example_lib", 
+        "@pip//ipdb",
+    ],
+    data = ["example_lib.so"],
+    imports = ["."],
+)
+

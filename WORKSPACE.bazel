@@ -90,6 +90,7 @@ crates_repository(
         "num": crate.spec(
             version = "0.4.1",
         ),
+        # "pyo3": crate.spec(version="0.19.2",),
     },
     # Setting the default package name to `""` forces the use of the macros defined in this repository
     # to always use the root package when looking for dependencies or aliases. This should be considered
@@ -98,6 +99,132 @@ crates_repository(
         default_package_name = ""
     ),
 )
+
+# http_archive(
+#     name = "pyo3-macros",
+#     build_file = "//third_party/pyo3-macros:BUILD.pyo3-macros.bazel",
+#     # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+#     strip_prefix = "pyo3-0.19.2/pyo3-macros",
+#     type = "tar.gz",
+#     urls = ["https://github.com/PyO3/pyo3/archive/refs/tags/v0.19.2.tar.gz"],
+# )
+#
+# crates_repository(
+#     name = "pyo3_macros_deps",
+#     cargo_lockfile = "//third_party/pyo3-macros:Cargo.lock",
+#     manifests = ["@pyo3_ffi//:Cargo.toml"],
+#     generate_build_scripts=False,
+# )
+# load("@pyo3_ffi_deps//:defs.bzl", pyo3_ffi_deps = "crate_repositories")
+# pyo3_ffi_deps()
+
+# crates_repository(
+#     name = "pyo3_macros_deps",
+#     cargo_lockfile = "//third_party/pyo3-macros:Cargo.lock",
+#     manifests = ["@pyo3-macros//:Cargo.toml"],
+#     generate_build_scripts=False,
+# )
+#
+#
+# load("@pyo3_macros_deps//:defs.bzl", pyo3_macros_deps = "crate_repositories")
+# pyo3_macros_deps()
+
+http_archive(
+    name = "pyo3-build-config",
+    build_file = "//third_party/pyo3-build-config:BUILD.pyo3-build-config.bazel",
+    # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+    strip_prefix = "pyo3-0.19.2/pyo3-build-config",
+    type = "tar.gz",
+    urls = ["https://github.com/PyO3/pyo3/archive/refs/tags/v0.19.2.tar.gz"],
+    patches = [
+        "//patches:pyo3-build-config.patch",
+    ],
+)
+
+crates_repository(
+    name = "pyo3_build_config_deps",
+    cargo_lockfile = "//third_party/pyo3-build-config:Cargo.lock",
+    manifests = ["@pyo3-build-config//:Cargo.toml"],
+    generate_build_scripts=True,
+    annotations = { 
+            "target-lexicon": [crate.annotation(
+                build_script_rustc_env = {
+                    "OUT_DIR": "/tmp/rustc_out",
+                    "HOST": "",
+                },
+                rustc_env = {
+                    "HOST": "",
+                },
+                gen_build_script = True,
+            )],
+        },
+)
+
+load("@pyo3_build_config_deps//:defs.bzl", pyo3_build_config_deps = "crate_repositories")
+pyo3_build_config_deps()
+
+http_archive(
+    name = "pyo3_ffi",
+    build_file = "//third_party/pyo3-ffi:BUILD.pyo3-ffi.bazel",
+    # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+    strip_prefix = "pyo3-ffi-0.19.2",
+    type = "tar.gz",
+    urls = ["https://crates.io/api/v1/crates/pyo3-ffi/0.19.2/download"],
+    patches = [
+        "//patches:pyo3-ffi.patch",
+    ],
+)
+
+
+crates_repository(
+    name = "pyo3_ffi_deps",
+    cargo_lockfile = "//third_party/pyo3-ffi:Cargo.lock",
+    manifests = ["@pyo3_ffi//:Cargo.toml"],
+    generate_build_scripts=False,
+)
+load("@pyo3_ffi_deps//:defs.bzl", pyo3_ffi_deps = "crate_repositories")
+pyo3_ffi_deps()
+
+http_archive(
+    name = "pyo3_macros",
+    build_file = "//third_party/pyo3-macros:BUILD.pyo3-macros.bazel",
+    # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+    strip_prefix = "pyo3-macros-0.19.2",
+    type = "tar.gz",
+    urls = ["https://crates.io/api/v1/crates/pyo3-macros/0.19.2/download"],
+)
+
+crates_repository(
+    name = "pyo3_macros_deps",
+    cargo_lockfile = "//third_party/pyo3-macros:Cargo.lock",
+    manifests = ["@pyo3_macros//:Cargo.toml"],
+    generate_build_scripts=True,
+)
+load("@pyo3_macros_deps//:defs.bzl", pyo3_macros_deps = "crate_repositories")
+pyo3_macros_deps()
+
+http_archive(
+    name = "pyo3",
+    build_file = "//third_party/pyo3:BUILD.pyo3.bazel",
+    # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
+    strip_prefix = "pyo3-0.19.2",
+    type = "tar.gz",
+    urls = ["https://crates.io/api/v1/crates/pyo3/0.19.2/download"],
+    patches = [
+        "//patches:pyo3.patch",
+    ],
+)
+
+crates_repository(
+    name = "pyo3_deps",
+    cargo_lockfile = "//third_party/pyo3:Cargo.lock",
+    manifests = ["@pyo3//:Cargo.toml"],
+    generate_build_scripts=False,
+)
+
+load("@pyo3_deps//:defs.bzl", pyo3_deps = "crate_repositories")
+
+pyo3_deps()
 
 load("@crate_index//:defs.bzl", "crate_repositories")
 
