@@ -39,5 +39,15 @@ rust_library(
         # "@pyo3_deps//:pyo3-macros",
         "@pyo3_deps//:indoc",
     ],
+    rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+            "--cfg=Py_3_7",
+            "--cfg=Py_3_8",
+            "--cfg=Py_3_9",
+        ]
 )
 

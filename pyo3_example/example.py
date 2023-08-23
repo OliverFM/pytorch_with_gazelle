@@ -1,4 +1,4 @@
-from ext import sum_as_string
+from string_sum import sum_as_string
 
 
 def main():

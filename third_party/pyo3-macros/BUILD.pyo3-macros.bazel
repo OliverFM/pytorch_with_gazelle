@@ -1,26 +1,23 @@
-load("@rules_rust//rust:defs.bzl", "rust_library", )
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_proc_macro" )
 package(default_visibility = ["//visibility:public"])
 
-rust_library(
-    name = "pyo3-build-config",
+rust_proc_macro(
+    name = "pyo3-macros",
     srcs = glob(["src/**/*.rs"]),
+    edition = "2021",
     crate_features = [
-            "default",
-            "extension-module",
-            "abi3-py39",
-            "resolve-config",
+            "abi3",
         ],
-        crate_name = "pyo3_build_config",
+        crate_name = "pyo3_macros",
         crate_root = "src/lib.rs",
     deps = [
-        "@pyo3_build_config_deps//:once_cell",
-        "@pyo3_build_config_deps//:target-lexicon",
+        "@pyo3_macros_deps//:quote",
+        "@pyo3_macros_deps//:proc-macro2",
+        "@pyo3_macros_deps//:syn",
+        "@pyo3_macros_deps//:pyo3-macros-backend",
     ],
     proc_macro_deps = [
     ],
-    rustc_env={
-                    "OUT_DIR": "/tmp/rustc_out", #TODO put this in the sandbox
-    },
     rustc_flags = [
             "--cap-lints=allow",
             "--cfg=addr_of",
