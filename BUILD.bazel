@@ -58,3 +58,4 @@ gazelle(
     data = GAZELLE_PYTHON_RUNTIME_DEPS,
     gazelle = "@rules_python_gazelle_plugin//python:gazelle_binary",
 )
+# gazelle:build_file_name BUILD.bazel

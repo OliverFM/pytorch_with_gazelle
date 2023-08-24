@@ -176,7 +176,6 @@ manifest:
     IPython.utils.ulinecache: ipython
     IPython.utils.version: ipython
     IPython.utils.wildcard: ipython
-    appnope: appnope
     asttokens: asttokens
     asttokens.astroid_compat: asttokens
     asttokens.asttokens: asttokens
@@ -186,6 +185,7 @@ manifest:
     asttokens.version: asttokens
     backcall: backcall
     backcall.backcall: backcall
+    cmake: cmake
     decorator: decorator
     exceptiongroup: exceptiongroup
     executing: executing
@@ -316,6 +316,35 @@ manifest:
     jinja2.sandbox: Jinja2
     jinja2.utils: Jinja2
     jinja2.visitor: Jinja2
+    lit: lit
+    lit.BooleanExpression: lit
+    lit.LitConfig: lit
+    lit.LitTestCase: lit
+    lit.ProgressBar: lit
+    lit.ShCommands: lit
+    lit.ShUtil: lit
+    lit.Test: lit
+    lit.TestRunner: lit
+    lit.TestTimes: lit
+    lit.TestingConfig: lit
+    lit.builtin_commands: lit
+    lit.builtin_commands.cat: lit
+    lit.builtin_commands.diff: lit
+    lit.cl_arguments: lit
+    lit.discovery: lit
+    lit.display: lit
+    lit.formats: lit
+    lit.formats.base: lit
+    lit.formats.googletest: lit
+    lit.formats.shtest: lit
+    lit.llvm: lit
+    lit.llvm.config: lit
+    lit.llvm.subst: lit
+    lit.main: lit
+    lit.reports: lit
+    lit.run: lit
+    lit.util: lit
+    lit.worker: lit
     markupsafe: MarkupSafe
     matplotlib_inline: matplotlib_inline
     matplotlib_inline.backend_inline: matplotlib_inline
@@ -646,6 +675,24 @@ manifest:
     networkx.utils.random_sequence: networkx
     networkx.utils.rcm: networkx
     networkx.utils.union_find: networkx
+    nvfuser: torch
+    nvidia: nvidia_cusolver_cu11
+    nvidia.cuda_cupti.lib.libcheckpoint: nvidia_cuda_cupti_cu11
+    nvidia.cuda_cupti.lib.libnvperf_host: nvidia_cuda_cupti_cu11
+    nvidia.cuda_cupti.lib.libnvperf_target: nvidia_cuda_cupti_cu11
+    nvidia.cuda_cupti.lib.libpcsamplingutil: nvidia_cuda_cupti_cu11
+    nvidia.cuda_nvrtc: nvidia_cuda_nvrtc_cu11
+    nvidia.cuda_nvrtc.include: nvidia_cuda_nvrtc_cu11
+    nvidia.cuda_nvrtc.lib: nvidia_cuda_nvrtc_cu11
+    nvidia.cudnn: nvidia_cudnn_cu11
+    nvidia.cudnn.include: nvidia_cudnn_cu11
+    nvidia.cudnn.lib: nvidia_cudnn_cu11
+    nvidia.cufft: nvidia_cufft_cu11
+    nvidia.cufft.include: nvidia_cufft_cu11
+    nvidia.cufft.lib: nvidia_cufft_cu11
+    nvidia.cusolver: nvidia_cusolver_cu11
+    nvidia.cusolver.include: nvidia_cusolver_cu11
+    nvidia.cusolver.lib: nvidia_cusolver_cu11
     packaging: packaging
     packaging.markers: packaging
     packaging.metadata: packaging
@@ -689,6 +736,8 @@ manifest:
     pexpect.spawnbase: pexpect
     pexpect.utils: pexpect
     pickleshare: pickleshare
+    pkg_resources: setuptools
+    pkg_resources.extern: setuptools
     pluggy: pluggy
     prompt_toolkit: prompt_toolkit
     prompt_toolkit.application: prompt_toolkit
@@ -1129,6 +1178,60 @@ manifest:
     pygments.unistring: Pygments
     pygments.util: Pygments
     pytest: pytest
+    setuptools: setuptools
+    setuptools.archive_util: setuptools
+    setuptools.build_meta: setuptools
+    setuptools.command: setuptools
+    setuptools.command.alias: setuptools
+    setuptools.command.bdist_egg: setuptools
+    setuptools.command.bdist_rpm: setuptools
+    setuptools.command.build: setuptools
+    setuptools.command.build_clib: setuptools
+    setuptools.command.build_ext: setuptools
+    setuptools.command.build_py: setuptools
+    setuptools.command.develop: setuptools
+    setuptools.command.dist_info: setuptools
+    setuptools.command.easy_install: setuptools
+    setuptools.command.editable_wheel: setuptools
+    setuptools.command.egg_info: setuptools
+    setuptools.command.install: setuptools
+    setuptools.command.install_egg_info: setuptools
+    setuptools.command.install_lib: setuptools
+    setuptools.command.install_scripts: setuptools
+    setuptools.command.register: setuptools
+    setuptools.command.rotate: setuptools
+    setuptools.command.saveopts: setuptools
+    setuptools.command.sdist: setuptools
+    setuptools.command.setopt: setuptools
+    setuptools.command.test: setuptools
+    setuptools.command.upload: setuptools
+    setuptools.command.upload_docs: setuptools
+    setuptools.config: setuptools
+    setuptools.config.expand: setuptools
+    setuptools.config.pyprojecttoml: setuptools
+    setuptools.config.setupcfg: setuptools
+    setuptools.dep_util: setuptools
+    setuptools.depends: setuptools
+    setuptools.discovery: setuptools
+    setuptools.dist: setuptools
+    setuptools.errors: setuptools
+    setuptools.extension: setuptools
+    setuptools.extern: setuptools
+    setuptools.glob: setuptools
+    setuptools.installer: setuptools
+    setuptools.launch: setuptools
+    setuptools.logging: setuptools
+    setuptools.monkey: setuptools
+    setuptools.msvc: setuptools
+    setuptools.namespaces: setuptools
+    setuptools.package_index: setuptools
+    setuptools.py312compat: setuptools
+    setuptools.sandbox: setuptools
+    setuptools.unicode_utils: setuptools
+    setuptools.version: setuptools
+    setuptools.warnings: setuptools
+    setuptools.wheel: setuptools
+    setuptools.windows_support: setuptools
     six: six
     stack_data: stack_data
     stack_data.core: stack_data
@@ -2379,6 +2482,17 @@ manifest:
     torch.jit.quantized: torch
     torch.jit.supported_ops: torch
     torch.jit.unsupported_tensor_ops: torch
+    torch.lib.libc10: torch
+    torch.lib.libc10_cuda: torch
+    torch.lib.libcaffe2_nvrtc: torch
+    torch.lib.libnvfuser_codegen: torch
+    torch.lib.libshm: torch
+    torch.lib.libtorch: torch
+    torch.lib.libtorch_cpu: torch
+    torch.lib.libtorch_cuda: torch
+    torch.lib.libtorch_cuda_linalg: torch
+    torch.lib.libtorch_global_deps: torch
+    torch.lib.libtorch_python: torch
     torch.library: torch
     torch.linalg: torch
     torch.masked: torch
@@ -2752,13 +2866,59 @@ manifest:
     traitlets.utils.nested_update: traitlets
     traitlets.utils.sentinel: traitlets
     traitlets.utils.text: traitlets
+    triton: triton
+    triton.compiler: triton
+    triton.impl: triton
+    triton.impl.base: triton
+    triton.language: triton
+    triton.language.core: triton
+    triton.language.extern: triton
+    triton.language.libdevice: triton
+    triton.language.random: triton
+    triton.language.semantic: triton
+    triton.ops: triton
+    triton.ops.blocksparse: triton
+    triton.ops.blocksparse.matmul: triton
+    triton.ops.blocksparse.softmax: triton
+    triton.ops.cross_entropy: triton
+    triton.ops.flash_attention: triton
+    triton.ops.matmul: triton
+    triton.ops.matmul_perf_model: triton
+    triton.runtime: triton
+    triton.runtime.autotuner: triton
+    triton.runtime.jit: triton
+    triton.testing: triton
+    triton.tools: triton
+    triton.tools.aot: triton
+    triton.tools.build_extern: triton
+    triton.tools.disasm: triton
+    triton.utils: triton
     typing_extensions: typing_extensions
     wcwidth: wcwidth
     wcwidth.table_wide: wcwidth
     wcwidth.table_zero: wcwidth
     wcwidth.unicode_versions: wcwidth
     wcwidth.wcwidth: wcwidth
+    wheel: wheel
+    wheel.bdist_wheel: wheel
+    wheel.cli: wheel
+    wheel.cli.convert: wheel
+    wheel.cli.pack: wheel
+    wheel.cli.tags: wheel
+    wheel.cli.unpack: wheel
+    wheel.macosx_libfile: wheel
+    wheel.metadata: wheel
+    wheel.util: wheel
+    wheel.vendored: wheel
+    wheel.vendored.packaging: wheel
+    wheel.vendored.packaging.markers: wheel
+    wheel.vendored.packaging.requirements: wheel
+    wheel.vendored.packaging.specifiers: wheel
+    wheel.vendored.packaging.tags: wheel
+    wheel.vendored.packaging.utils: wheel
+    wheel.vendored.packaging.version: wheel
+    wheel.wheelfile: wheel
   pip_repository:
     name: pip
     use_pip_repository_aliases: true
-integrity: ed63d90441f34cc549da75801bf847196df50b025709048af627dbc6f6a92dcc
+integrity: 93f04578e7d7d98bc0a397edd840594f8f7f1f5c09d35b994ced752ad1803337
