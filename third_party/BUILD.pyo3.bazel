@@ -1,0 +1,45 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", )
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "pyo3",
+    srcs = glob(["src/**/*.rs"]),
+    edition = "2021",
+    deps = [
+        "@pyo3_deps//:cfg-if",
+        "@pyo3_deps//:libc",
+        "@pyo3_deps//:parking_lot",
+        "@pyo3_deps//:memoffset",
+        # "@pyo3_deps//:pyo3-ffi",
+        "@pyo3_deps//:unindent",
+        # "@pyo3_deps//:inventory",
+        # "@pyo3_deps//:anyhow",
+        # "@pyo3_deps//:chrono",
+        # "@pyo3_deps//:eyre",
+        # "@pyo3_deps//:hashbrown",
+        # "@pyo3_deps//:indexmap",
+        # "@pyo3_deps//:num-bigint",
+        # "@pyo3_deps//:num-complex",
+        # "@pyo3_deps//:rust_decimal",
+        # "@pyo3_deps//:serde",
+        # "@pyo3_deps//:",
+        # "@pyo3_deps//:",
+        "@pyo3_ffi//:pyo3-ffi",
+    ],
+    proc_macro_deps = [
+        # "@pyo3_deps//:pyo3-macros",
+        "@pyo3_macros//:pyo3-macros",
+        "@pyo3_deps//:indoc",
+    ],
+    rustc_flags = [
+            "--cap-lints=allow",
+            "--cfg=addr_of",
+            "--cfg=min_const_generics",
+            "--cfg=option_insert",
+            "--cfg=Py_3_6",
+            "--cfg=Py_3_7",
+            "--cfg=Py_3_8",
+            "--cfg=Py_3_9",
+        ],
+            crate_features = ["extension-module","macros", "pyo3-macros", "indoc", "unindent", "abi3-py39"],
+)
