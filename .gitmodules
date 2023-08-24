@@ -1,3 +1,0 @@
-[submodule "third_party/pyo3"]
-	path = third_party/pyo3
-	url = https://github.com/PyO3/pyo3.git
