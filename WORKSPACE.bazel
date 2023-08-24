@@ -100,35 +100,6 @@ crates_repository(
     ),
 )
 
-# http_archive(
-#     name = "pyo3-macros",
-#     build_file = "//third_party/pyo3-macros:BUILD.pyo3-macros.bazel",
-#     # sha256 = "c8d748b182c8f95224336d20dcc5609598af612581ce60cfb29da4dc8d0091f2",
-#     strip_prefix = "pyo3-0.19.2/pyo3-macros",
-#     type = "tar.gz",
-#     urls = ["https://github.com/PyO3/pyo3/archive/refs/tags/v0.19.2.tar.gz"],
-# )
-#
-# crates_repository(
-#     name = "pyo3_macros_deps",
-#     cargo_lockfile = "//third_party/pyo3-macros:Cargo.lock",
-#     manifests = ["@pyo3_ffi//:Cargo.toml"],
-#     generate_build_scripts=False,
-# )
-# load("@pyo3_ffi_deps//:defs.bzl", pyo3_ffi_deps = "crate_repositories")
-# pyo3_ffi_deps()
-
-# crates_repository(
-#     name = "pyo3_macros_deps",
-#     cargo_lockfile = "//third_party/pyo3-macros:Cargo.lock",
-#     manifests = ["@pyo3-macros//:Cargo.toml"],
-#     generate_build_scripts=False,
-# )
-#
-#
-# load("@pyo3_macros_deps//:defs.bzl", pyo3_macros_deps = "crate_repositories")
-# pyo3_macros_deps()
-
 http_archive(
     name = "pyo3-build-config",
     build_file = "//third_party/pyo3-build-config:BUILD.pyo3-build-config.bazel",
