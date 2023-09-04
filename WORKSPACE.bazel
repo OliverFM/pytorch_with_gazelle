@@ -18,23 +18,25 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Define an http_archive rule that will download the below ruleset,
 # test the sha, and extract the ruleset to you local bazel cache.
 
+GO_SHA = "278b7ff5a826f3dc10f04feaf0b70d48b68748ccd512d7f98bf442077f043fe3"
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "6dc2da7ab4cf5d7bfc7c949776b1b7c733f05e56edc4bcd9022bb249d2e2a996",
+    sha256 = GO_SHA,
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.39.1/rules_go-v0.39.1.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.39.1/rules_go-v0.39.1.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
     ],
 )
 
 # Download the bazel_gazelle ruleset.
 
+GAZELLE_SHA = "29218f8e0cebe583643cbf93cae6f971be8a2484cdcfa1e45057658df8d54002"
+
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "727f3e4edd96ea20c29e8c2ca9e8d2af724d8c7778e7923a854b2c80952bc405",
+    sha256 = GAZELLE_SHA,
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.30.0/bazel-gazelle-v0.30.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.30.0/bazel-gazelle-v0.30.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.32.0/bazel-gazelle-v0.32.0.tar.gz",
     ],
 )
 
@@ -90,7 +92,6 @@ crates_repository(
         "num": crate.spec(
             version = "0.4.1",
         ),
-        # "pyo3": crate.spec(version="0.19.2",),
     },
     # Setting the default package name to `""` forces the use of the macros defined in this repository
     # to always use the root package when looking for dependencies or aliases. This should be considered
@@ -205,27 +206,26 @@ crate_repositories()
 # Remaining setup is for rules_python.
 
 # See https://github.com/bazelbuild/rules_python/releases
-RULES_PYTHON_SHA256 = "8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
+RULES_PYTHON_SHA256 = "5868e73107a8e85d8f323806e60cad7283f34b32163ea6ff1020cf27abef6036"
 
-RULES_PYTHON_VERSION = "0.23.0"
+RULES_PYTHON_VERSION = "0.25.0"
 
 http_archive(
     name = "rules_python",
-    patch_args = ["-p1"],
     patches = [
+        # "//tools/patches:circulardeps.patch", # https://github.com/bazelbuild/rules_python/pull/1166#issuecomment-1701230930
         "//patches:rules_python_annotation.patch",
     ],
     sha256 = RULES_PYTHON_SHA256,
     strip_prefix = "rules_python-{}".format(RULES_PYTHON_VERSION),
-    url = "https://github.com/bazelbuild/rules_python/archive/{}.tar.gz".format(RULES_PYTHON_VERSION),
-    # url = "[https://github.com/bazelbuild/rules_python/archive/{}.tar.gz](https://github.com/bazelbuild/rules_python/archive/%7B%7D.tar.gz)".format(RULES_PYTHON_VERSION),
+    url = "https://github.com/bazelbuild/rules_python/releases/download/{}/rules_python-{}.tar.gz".format(RULES_PYTHON_VERSION, RULES_PYTHON_VERSION),
 )
 
-GAZELLE_SHA = "8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
+# GAZELLE_SHA = "8272287b125a23bfc79650ecbbc045ebcaee4d632338b1a50aad34357bcbadce"
 
 http_archive(
     name = "rules_python_gazelle_plugin",
-    sha256 = GAZELLE_SHA,
+    # sha256 = GAZELLE_SHA,
     strip_prefix = "rules_python-{}/gazelle".format(RULES_PYTHON_VERSION),
     url = "https://github.com/bazelbuild/rules_python/releases/download/{}/rules_python-{}.tar.gz".format(RULES_PYTHON_VERSION, RULES_PYTHON_VERSION),
 )
@@ -261,10 +261,7 @@ load("@rules_python//python:pip.bzl", "package_annotation", "pip_parse")
 # )
 
 ANNOTATIONS = {
-    "triton": package_annotation(
-        excluded_deps = ["torch"],
-    ),
-}
+} 
 
 # This macro wraps the `pip_repository` rule that invokes `pip`, with `incremental` set.
 # Accepts a locked/compiled requirements file and installs the dependencies listed within.
